@@ -2,10 +2,10 @@ Review the changes in this project.
 
 First read the following documents:
 - `/CLAUDE.md`
+- `/docs/PRD.md`
 - `/docs/ARCHITECTURE.md`
 - `/docs/ADR.md`
-- `/docs/PRD.md`
-- `/docs/UI_GUIDE.md`
+- `/docs/UI_GUIDE.md` if present and the change touches UI
 
 Then inspect the changed files and verify them against the checklist below:
 
@@ -17,7 +17,7 @@ Then inspect the changed files and verify them against the checklist below:
 4. **CRITICAL rules**: Does the change violate any CRITICAL rules in CLAUDE.md?
 5. **Build succeeds**: Does the build command complete without errors?
 6. **Product requirements**: Does the change align with the goals and scope defined in PRD.md?
-7. **UI guidelines**: Does the change follow the patterns and standards defined in UI_GUIDE.md?
+7. **UI guidelines**: If UI changed and UI_GUIDE.md exists, does the change follow it?
 
 ## Output format
 
@@ -29,6 +29,6 @@ Then inspect the changed files and verify them against the checklist below:
 | CRITICAL rules | ✅/❌ | {details} |
 | Build succeeds | ✅/❌ | {details} |
 | Product requirements | ✅/❌ | {details} |
-| UI guidelines | ✅/❌ | {details} |
+| UI guidelines | ✅/❌/N/A | {details} |
 
 If anything fails, propose concrete fixes.

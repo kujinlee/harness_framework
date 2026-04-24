@@ -33,7 +33,7 @@ Design principles:
 2. **Self-contained** — Each step file runs in an independent Claude session. Do not use external references like “as discussed in the previous conversation.” Put everything needed inside the file.
 3. **Force upfront prep** — List relevant document paths and paths of files created or modified in prior steps. Encourage the session to read code and build context before acting.
 4. **Signature-level direction** — Specify function/class interfaces only; leave internals to the agent. Still spell out non-negotiable rules from the design intent (idempotency, security, data integrity, etc.).
-5. **ACs are runnable commands** — Avoid vague statements like “X should work.” Include real verification commands such as `npm run build && npm test`.
+5. **ACs are runnable commands** — Avoid vague statements like “X should work.” Include real verification commands such as `npm run build && npm test`. Feature steps must include the project’s test command; build-only ACs are acceptable only for non-feature scaffolding before a test runner exists.
 6. **Warnings must be concrete** — Instead of “be careful,” write “Do not do X. Reason: Y.”
 7. **Naming** — Step names are kebab-case slugs expressing the core module or work in one or two words (e.g. `project-setup`, `api-layer`, `auth-flow`).
 
@@ -77,7 +77,7 @@ Top-level index for managing multiple tasks. If it already exists, append a new 
 Field rules:
 
 - `project`: Project name (see CLAUDE.md).
-- `phase`: Task name. Must match the directory name.
+- `phase`: Task slug used for branch and commit prefixes. Usually match the directory name; if it differs, `execute.py` still uses this value for `feat-{phase}` and `feat({phase})` commits.
 - `steps[].step`: Zero-based sequence number.
 - `steps[].name`: kebab-case slug.
 - `steps[].status`: Initial value is always `"pending"`.
@@ -115,12 +115,16 @@ Read code from prior steps carefully and understand the design intent before wor
 Keep code snippets at interface/signature level only; leave implementations to the agent.
 Still spell out non-negotiable rules that must not diverge from the design intent.}
 
+If the target project has no test runner yet, the first implementation step must install/configure one and add at least one real test before later feature steps depend on it.
+
 ## Acceptance Criteria
 
 ```bash
 npm run build   # no compile errors
 npm test        # tests pass
 ```
+
+Replace these commands with the target project's equivalents when the stack is not Node.
 
 ## Verification procedure
 

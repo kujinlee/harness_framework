@@ -75,6 +75,7 @@ To recover: set the step's `status` back to `"pending"`, remove `error_message`/
 ## Development process
 
 - CRITICAL: For new features, write tests first, then implement until tests pass (TDD)
+- CRITICAL: Step files must include test setup in the first implementation step when a project has no test runner yet, and every implementation step must include the project's test command in Acceptance Criteria. Never use a build-only AC for feature work.
 - Commit messages follow Conventional Commits (`feat:`, `fix:`, `docs:`, `refactor:`)
 - Tests mock `subprocess.run` and patch `ex.ROOT`; never hit real git or Claude in tests.
 
